@@ -31,10 +31,22 @@
 
 html { scroll-behavior: smooth; }
 
+/* A signature instead of the browser-default blue selection/scrollbar —
+   small, but it's the kind of detail that reads as "someone cared". */
+::selection { background: var(--gold); color: var(--white); }
+html { scrollbar-width: thin; scrollbar-color: var(--beige-dark) var(--champagne-soft); }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--champagne-soft); }
+::-webkit-scrollbar-thumb { background: var(--beige-dark); border-radius: 999px; border: 2px solid var(--champagne-soft); }
+::-webkit-scrollbar-thumb:hover { background: var(--gold-dark); }
+
 body {
   font-family: var(--font-body);
   color: var(--espresso);
-  background: var(--ivory);
+  /* A whisper of paper-grain warms up the flat ivory instead of it reading
+     as a plain digital fill — practically invisible, felt more than seen. */
+  background-color: var(--ivory);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.23  0 0 0 0 0.18  0 0 0 0 0.13  0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   font-size: 16px;
   line-height: 1.7;
   font-weight: 300;
@@ -55,6 +67,15 @@ h3 { font-size: clamp(1.4rem, 2.5vw, 1.8rem); }
 a { text-decoration: none; color: inherit; }
 
 img { max-width: 100%; display: block; }
+
+/* A single, consistent warm grade across every real photo — ties together
+   shots taken on different days, cameras and lighting into one look. */
+.savedate-strip img,
+.split img,
+.gallery-item img,
+.party-photo img {
+  filter: saturate(1.08) contrast(1.04) sepia(0.08);
+}
 
 .container-narrow {
   max-width: 880px;
@@ -93,6 +114,7 @@ img { max-width: 100%; display: block; }
 }
 
 .btn-elegant {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
@@ -108,10 +130,26 @@ img { max-width: 100%; display: block; }
   background: transparent;
   transition: all 0.35s ease;
   cursor: pointer;
+  overflow: hidden;
 }
 .btn-elegant:hover { background: var(--gold); color: var(--white); border-color: var(--gold); }
 .btn-elegant.solid { background: var(--gold); color: var(--white); }
 .btn-elegant.solid:hover { background: var(--gold-dark); border-color: var(--gold-dark); }
+/* A soft light sweep on hover — a quiet bit of shine instead of a flat color swap. */
+.btn-elegant::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; left: -60%;
+  width: 40%;
+  background: linear-gradient(115deg, transparent, rgba(255,255,255,0.55), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.65s ease;
+  pointer-events: none;
+}
+.btn-elegant:hover::after { left: 130%; }
+@media (prefers-reduced-motion: reduce) {
+  .btn-elegant::after { display: none; }
+}
 
 /* ---------- Header / Nav ----------
    Default = solid light header with dark text (used on every inner page,
@@ -209,9 +247,36 @@ body.scrolled .header { padding: 0.9rem 0; }
   position: relative;
   background: var(--champagne);
   padding: 9.5rem 0 4.5rem;
-  overflow: visible;
+  overflow: hidden;
 }
-.hero-monogram { height: 84px; width: auto; margin: 0 auto 1.2rem; opacity: 0.92; }
+/* A giant, faint ampersand behind "Save the Date" — an echo of the "&"
+   that already runs through the logo and names, the kind of quiet
+   flourish fine wedding stationery uses instead of literal decoration. */
+.savedate-heading { position: relative; }
+.savedate-heading::before {
+  content: "&";
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -46%);
+  font-family: var(--font-script);
+  font-size: 340px;
+  line-height: 1;
+  color: var(--gold);
+  opacity: 0.1;
+  pointer-events: none;
+  z-index: 0;
+  white-space: nowrap;
+}
+.savedate-heading > * { position: relative; z-index: 1; }
+@media (max-width: 640px) {
+  .savedate-heading::before { font-size: 200px; }
+  .hero-monogram { height: 108px; }
+}
+@media (max-width: 480px) {
+  .schedule-item { grid-template-columns: 54px 18px 1fr; column-gap: 0.9rem; }
+  .schedule-time { font-size: 0.9rem; }
+}
+.hero-monogram { height: 140px; width: auto; margin: 0 auto 1.2rem; opacity: 0.94; }
 .savedate-heading .eyebrow { justify-content: center; display: inline-flex; }
 .savedate-title {
   margin: 1rem 0 0;
@@ -242,7 +307,19 @@ body.scrolled .header { padding: 0.9rem 0; }
   border-radius: 4px;
   overflow: hidden;
 }
-.savedate-strip .photo img { width: 100%; height: 100%; object-fit: cover; }
+.savedate-strip .photo img {
+  width: 100%; height: 100%; object-fit: cover;
+  animation: kenburns 22s ease-in-out infinite alternate;
+}
+.savedate-strip .photo:nth-child(2) img { animation-delay: -7s; }
+.savedate-strip .photo:nth-child(3) img { animation-delay: -14s; }
+@keyframes kenburns {
+  from { transform: scale(1); }
+  to   { transform: scale(1.08); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .savedate-strip .photo img { animation: none; }
+}
 .savedate-strip .photo .num {
   position: absolute;
   left: 0.4rem;
@@ -305,6 +382,11 @@ body.scrolled .header { padding: 0.9rem 0; }
   font-size: 1.9rem;
   color: var(--gold-dark);
   font-weight: 600;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.countdown .unit strong.tick { opacity: 0; transform: translateY(-6px); }
+@media (prefers-reduced-motion: reduce) {
+  .countdown .unit strong { transition: none; }
 }
 .countdown .unit span {
   font-size: 0.65rem;
@@ -341,8 +423,15 @@ body.scrolled .header { padding: 0.9rem 0; }
 .divider {
   width: 60px; height: 1px; background: var(--gold);
   margin: 1.4rem 0;
+  transform-origin: center;
+  transform: scaleX(0);
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .divider.center { margin: 1.4rem auto; }
+.divider.in-view { transform: scaleX(1); }
+@media (prefers-reduced-motion: reduce) {
+  .divider { transform: none; transition: none; }
+}
 
 /* Timeline (Our Story) */
 .timeline { max-width: 760px; margin: 0 auto; position: relative; }
@@ -379,6 +468,43 @@ body.scrolled .header { padding: 0.9rem 0; }
   .timeline-item:nth-child(even)::before { left: -33px; }
 }
 .timeline-item .date { color: var(--gold-dark); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.14em; }
+
+/* Day-of schedule (Wedding Party) */
+.schedule { max-width: 620px; margin: 0 auto; }
+.schedule-item {
+  display: grid;
+  grid-template-columns: 68px 20px 1fr;
+  column-gap: 1.3rem;
+}
+.schedule-time {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.02rem;
+  color: var(--gold-dark);
+  text-align: right;
+  padding-top: 0.1rem;
+  white-space: nowrap;
+}
+.schedule-rail { display: flex; flex-direction: column; align-items: center; }
+.schedule-rail .dot {
+  width: 11px; height: 11px; flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--ivory);
+  border: 2px solid var(--gold);
+  margin-top: 0.25rem;
+}
+.schedule-rail .rule { width: 1px; flex: 1; background: var(--line); margin-top: 0.3rem; }
+.schedule-item:last-child .schedule-rail .rule { display: none; }
+.schedule-body { padding-bottom: 2.3rem; }
+.schedule-body h3 {
+  font-size: 1.08rem;
+  margin-bottom: 0.3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+.schedule-body h3 .bi { color: var(--gold-dark); font-size: 0.95rem; }
+.schedule-body p { font-size: 0.92rem; color: rgba(58,46,34,0.72); margin: 0; }
 
 /* Details / cards */
 .info-grid {
@@ -556,10 +682,13 @@ body.scrolled .header { padding: 0.9rem 0; }
   text-align: center;
 }
 .footer .footer-monogram {
-  height: 54px;
+  height: 84px;
   width: auto;
-  margin: 0 auto 1rem;
-  opacity: 0.9;
+  margin: 0 auto 1.1rem;
+  opacity: 0.92;
+}
+@media (max-width: 640px) {
+  .footer .footer-monogram { height: 64px; }
 }
 .footer .logo-footer {
   font-family: var(--font-display);

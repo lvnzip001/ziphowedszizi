@@ -61,6 +61,30 @@
     }
   });
 
+  /* Divider draw-in: the thin gold rule scales in from the center the
+     first time it scrolls into view, instead of just sitting there static. */
+  var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!prefersReducedMotion && "IntersectionObserver" in window) {
+    var dividerObserver = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+            dividerObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+    document.querySelectorAll(".divider").forEach(function (el) {
+      dividerObserver.observe(el);
+    });
+  } else {
+    document.querySelectorAll(".divider").forEach(function (el) {
+      el.classList.add("in-view");
+    });
+  }
+
   /* FAQ accordion */
   document.querySelectorAll(".faq-item h3").forEach(function (item) {
     item.addEventListener("click", function () {
@@ -84,6 +108,23 @@
     var mins = el.querySelector(".cd-mins");
     var secs = el.querySelector(".cd-secs");
 
+    // Only fade a digit when its value actually changes, rather than
+    // re-animating all four every second — a small detail that keeps the
+    // countdown feeling calm instead of jittery.
+    var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function setIfChanged(node, value) {
+      if (!node || node.textContent === value) return;
+      if (reduceMotion) {
+        node.textContent = value;
+        return;
+      }
+      node.classList.add("tick");
+      setTimeout(function () {
+        node.textContent = value;
+        node.classList.remove("tick");
+      }, 200);
+    }
+
     function tick() {
       var now = new Date().getTime();
       var diff = target - now;
@@ -99,10 +140,10 @@
       var m = Math.floor((diff / (1000 * 60)) % 60);
       var s = Math.floor((diff / 1000) % 60);
 
-      if (days) days.textContent = d;
-      if (hours) hours.textContent = String(h).padStart(2, "0");
-      if (mins) mins.textContent = String(m).padStart(2, "0");
-      if (secs) secs.textContent = String(s).padStart(2, "0");
+      setIfChanged(days, String(d));
+      setIfChanged(hours, String(h).padStart(2, "0"));
+      setIfChanged(mins, String(m).padStart(2, "0"));
+      setIfChanged(secs, String(s).padStart(2, "0"));
     }
 
     tick();
