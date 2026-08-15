@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RSVP — Zipho &amp; Zizi</title>
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Alex+Brush&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
+</head>
+<body>
+
+  <header id="header" class="header">
+    <div class="container-fluid">
+      <a href="index.html" class="logo">Zipho <span class="amp">&amp;</span> Zizi</a>
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="our-story.html">Our Story</a></li>
+          <li><a href="details.html">Details</a></li>
+          <li><a href="wedding-party.html">Wedding Party</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="registry.html">Registry &amp; FAQ</a></li>
+          <li><a href="rsvp.html" class="nav-cta active">RSVP</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="page-hero">
+      <div class="container-narrow">
+        <p class="eyebrow">RSVP</p>
+        <h1 style="margin-top:1rem;">Will you be there?</h1>
+        <p style="margin-top:1rem; color:rgba(58,46,34,0.75);">Please respond by <em>[RSVP deadline]</em> so we can finalise seating and catering.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="rsvp-wrap" data-aos="fade-up">
+
+          <div id="rsvp-success">
+            <i class="bi bi-check-circle" style="font-size:1.4rem; display:block; margin-bottom:0.4rem;"></i>
+            Thank you! Your RSVP has been received.
+          </div>
+          <div id="rsvp-error">
+            Something went wrong sending your RSVP — please try again, or reach out to us directly.
+          </div>
+
+          <!--
+            IMPORTANT — before this goes live:
+            Replace the form action below with your own Formspree endpoint
+            (sign up free at formspree.io, create a form, and paste the
+            "https://formspree.io/f/xxxxxxxx" URL here). See README-NOTES.md.
+          -->
+          <form id="rsvp-form" action="https://formspree.io/f/your-form-id" method="POST">
+            <div class="two-col">
+              <div class="form-row">
+                <label for="full-name">Full name</label>
+                <input type="text" id="full-name" name="Full name" required>
+              </div>
+              <div class="form-row">
+                <label for="email">Email address</label>
+                <input type="email" id="email" name="Email" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <label for="attending">Will you be attending?</label>
+              <select id="attending" name="Attending" required>
+                <option value="" disabled selected>Please choose one</option>
+                <option value="yes">Joyfully accepts</option>
+                <option value="no">Regretfully declines</option>
+              </select>
+            </div>
+
+            <div class="form-row" id="guests-row">
+              <label for="guests">Number of guests (including you)</label>
+              <input type="number" id="guests" name="Number of guests" min="1" max="10" value="1">
+            </div>
+
+            <div class="form-row">
+              <label for="dietary">Dietary requirements or allergies</label>
+              <textarea id="dietary" name="Dietary requirements" rows="3" placeholder="e.g. vegetarian, nut allergy, none"></textarea>
+            </div>
+
+            <div class="form-row">
+              <label for="message">A message for the couple (optional)</label>
+              <textarea id="message" name="Message" rows="3" placeholder="Well wishes, song requests, anything at all"></textarea>
+            </div>
+
+            <button type="submit" class="btn-elegant solid form-submit">Send RSVP</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="logo-footer">Zipho <span>&amp;</span> Zizi</div>
+      <p>25 March 2027</p>
+      <nav>
+        <a href="our-story.html">Our Story</a>
+        <a href="details.html">Details</a>
+        <a href="wedding-party.html">Wedding Party</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="registry.html">Registry &amp; FAQ</a>
+        <a href="rsvp.html">RSVP</a>
+      </nav>
+      <p class="fine">Made with love for our wedding day.</p>
+    </div>
+  </footer>
+
+  <a href="#" class="scroll-top"><i class="bi bi-arrow-up"></i></a>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
