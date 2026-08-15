@@ -198,6 +198,57 @@
     });
   }
 
+  /* -------------------------------------------------
+     Modals (Registry / Honeymoon Fund) — generic enough to reuse for
+     any future modal: just add a trigger with data-modal-target="id"
+     pointing at a .modal-overlay with that id.
+     ------------------------------------------------- */
+  var lastModalTrigger = null;
+
+  function openModal(modal, trigger) {
+    lastModalTrigger = trigger || null;
+    modal.classList.add("active");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+    var closeBtn = modal.querySelector(".modal-close");
+    if (closeBtn) closeBtn.focus();
+  }
+
+  function closeModal(modal) {
+    modal.classList.remove("active");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("modal-open");
+    if (lastModalTrigger) lastModalTrigger.focus();
+  }
+
+  document.querySelectorAll("[data-modal-target]").forEach(function (trigger) {
+    trigger.addEventListener("click", function (e) {
+      e.preventDefault();
+      var modal = document.getElementById(trigger.getAttribute("data-modal-target"));
+      if (modal) openModal(modal, trigger);
+    });
+  });
+
+  document.querySelectorAll(".modal-overlay").forEach(function (modal) {
+    var closeBtn = modal.querySelector(".modal-close");
+    if (closeBtn) {
+      closeBtn.addEventListener("click", function () {
+        closeModal(modal);
+      });
+    }
+    // Click on the dimmed backdrop (not the box itself) closes it too.
+    modal.addEventListener("click", function (e) {
+      if (e.target === modal) closeModal(modal);
+    });
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" || e.key === "Esc") {
+      var openModalEl = document.querySelector(".modal-overlay.active");
+      if (openModalEl) closeModal(openModalEl);
+    }
+  });
+
   /* Conditional guest-count field for RSVP */
   var attendingSelect = document.querySelector("#attending");
   var guestsRow = document.querySelector("#guests-row");
