@@ -14,23 +14,36 @@
 
   /* Mobile nav toggle */
   const navToggle = document.querySelector(".mobile-nav-toggle");
+
+  function setMobileNav(open) {
+    document.body.classList.toggle("mobile-nav-active", open);
+    if (!navToggle) return;
+
+    navToggle.classList.toggle("bi-list", !open);
+    navToggle.classList.toggle("bi-x", open);
+    navToggle.setAttribute("aria-expanded", String(open));
+    navToggle.setAttribute("aria-label", open ? "Close navigation menu" : "Open navigation menu");
+  }
+
   if (navToggle) {
     navToggle.addEventListener("click", function () {
-      document.body.classList.toggle("mobile-nav-active");
-      navToggle.classList.toggle("bi-list");
-      navToggle.classList.toggle("bi-x");
+      setMobileNav(!document.body.classList.contains("mobile-nav-active"));
     });
   }
   document.querySelectorAll("#navmenu a").forEach(function (link) {
     link.addEventListener("click", function () {
-      if (document.body.classList.contains("mobile-nav-active")) {
-        document.body.classList.remove("mobile-nav-active");
-        if (navToggle) {
-          navToggle.classList.add("bi-list");
-          navToggle.classList.remove("bi-x");
-        }
-      }
+      setMobileNav(false);
     });
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") setMobileNav(false);
+  });
+  window.addEventListener("resize", function () {
+    if (window.innerWidth > 991) setMobileNav(false);
+  });
+  window.addEventListener("pageshow", function () {
+    setMobileNav(false);
   });
 
   /* Scroll-to-top button */

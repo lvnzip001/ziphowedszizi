@@ -223,6 +223,11 @@ body.mobile-nav-active .header { backdrop-filter: none !important; }
   font-size: 1.7rem;
   color: var(--espresso);
   cursor: pointer;
+  line-height: 1;
+  padding: 0.35rem;
+  border: 0;
+  background: transparent;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Every page (including the homepage, now that its hero is light too) uses
@@ -230,23 +235,33 @@ body.mobile-nav-active .header { backdrop-filter: none !important; }
 body.scrolled .header { padding: 0.9rem 0; }
 
 @media (max-width: 991px) {
+  .header { backdrop-filter: none; }
   .navmenu ul {
     position: fixed;
     inset: 0;
+    min-height: 100dvh;
     background: var(--ivory);
     flex-direction: column;
     justify-content: center;
     gap: 1.8rem;
-    transform: translateY(-100%);
+    transform: translateY(-1rem);
     opacity: 0;
     /* Name only what changes (transform/opacity) instead of "all" — cheaper
        to compute and it won't pick up unrelated property changes. */
-    transition: transform 0.4s ease, opacity 0.4s ease;
-    will-change: transform, opacity;
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.2s ease, opacity 0.2s ease, visibility 0s linear 0.2s;
     z-index: 996;
   }
   .navmenu a { color: var(--espresso) !important; font-size: 1rem; }
-  body.mobile-nav-active .navmenu ul { transform: translateY(0); opacity: 1; }
+  body.mobile-nav-active { overflow: hidden; }
+  body.mobile-nav-active .navmenu ul {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition-delay: 0s;
+  }
   .mobile-nav-toggle { display: block; z-index: 999; position: relative; }
 }
 
