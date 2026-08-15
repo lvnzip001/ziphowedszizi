@@ -12,7 +12,7 @@
   --espresso: #3A2E22;
   --charcoal: #2B231A;
   --gold: #A8824F;
-  --gold-dark: #8C6A3C;
+  --gold-dark: #785A32;
   --white: #FFFFFF;
   --line: rgba(58, 46, 34, 0.14);
 
@@ -211,6 +211,7 @@ body.scrolled .header { padding: 0.9rem 0; }
   padding: 9.5rem 0 4.5rem;
   overflow: visible;
 }
+.hero-monogram { height: 84px; width: auto; margin: 0 auto 1.2rem; opacity: 0.92; }
 .savedate-heading .eyebrow { justify-content: center; display: inline-flex; }
 .savedate-title {
   margin: 1rem 0 0;
@@ -553,6 +554,12 @@ body.scrolled .header { padding: 0.9rem 0; }
   color: rgba(255,255,255,0.65);
   padding: 4rem 0 2rem;
   text-align: center;
+}
+.footer .footer-monogram {
+  height: 54px;
+  width: auto;
+  margin: 0 auto 1rem;
+  opacity: 0.9;
 }
 .footer .logo-footer {
   font-family: var(--font-display);
