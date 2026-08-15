@@ -194,7 +194,7 @@ body.mobile-nav-active .header { backdrop-filter: none !important; }
 
 .navmenu ul {
   display: flex;
-  gap: 2.4rem;
+  gap: 1.8rem;
   list-style: none;
   margin: 0; padding: 0;
   align-items: center;
@@ -817,11 +817,54 @@ body.modal-open { overflow: hidden; }
 
 /* Page hero (inner pages) */
 .page-hero {
-  padding: 11rem 0 4rem;
+  padding: 7rem 0 1.5rem;
   text-align: center;
   background: linear-gradient(var(--champagne-soft), var(--ivory));
 }
 .page-hero h1 { font-size: clamp(2.2rem, 5vw, 3.2rem); }
+
+/* Page banner photo — a single wide photo used to open an inner page,
+   pulled from the gallery instead of a dedicated photo-grid page. */
+.page-banner-photo {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 1.6rem;
+}
+.page-banner-photo img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+@media (max-width: 640px) {
+  .page-banner-photo img { height: 250px; }
+}
+
+/* Dress-code palette swatches */
+.palette-swatches {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2.2rem;
+  margin-top: 2.2rem;
+}
+.palette-swatches .swatch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gold-dark);
+}
+.palette-swatches .swatch span {
+  display: block;
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  box-shadow: 0 4px 14px rgba(58,46,34,0.08);
+}
 
 /* Scroll top button */
 .scroll-top {
@@ -842,4 +885,8 @@ body.modal-open { overflow: hidden; }
 /* Utility */
 .text-center { text-align: center; }
 .mt-0 { margin-top: 0; }
-[data-aos] { }
+/* Anchors a cover-fit image to its top edge instead of centering the crop —
+   for wide banners built from a taller source photo where the interesting
+   part (sky, building) sits in the upper portion. */
+.obj-top { object-position: top; }
+.obj-couple { object-position: center 30%; }

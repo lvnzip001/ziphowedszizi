@@ -47,20 +47,6 @@
     });
   }
 
-  /* AOS scroll animations */
-  window.addEventListener("load", function () {
-    if (window.AOS) {
-      AOS.init({ duration: 700, easing: "ease-in-out", once: true, mirror: false });
-    }
-  });
-
-  /* GLightbox for the photo gallery */
-  window.addEventListener("load", function () {
-    if (window.GLightbox) {
-      GLightbox({ selector: ".glightbox" });
-    }
-  });
-
   /* Divider draw-in: the thin gold rule scales in from the center the
      first time it scrolls into view, instead of just sitting there static. */
   var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
