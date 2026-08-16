@@ -40,7 +40,7 @@
     if (event.key === "Escape") setMobileNav(false);
   });
   window.addEventListener("resize", function () {
-    if (window.innerWidth > 991) setMobileNav(false);
+    if (window.innerWidth > 1199) setMobileNav(false);
   });
   window.addEventListener("pageshow", function () {
     setMobileNav(false);
