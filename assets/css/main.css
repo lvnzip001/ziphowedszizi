@@ -616,6 +616,9 @@ body.scrolled .header { padding: 0.9rem 0; }
   text-transform: uppercase;
 }
 .card .card-link:hover { text-decoration: underline; }
+.travel-routes { text-align: left; }
+.travel-routes p + p { margin-top: 0.75rem; }
+.travel-routes strong { color: var(--charcoal); font-weight: 500; }
 .section[id] { scroll-margin-top: 5.5rem; }
 
 /* Wedding party */
@@ -810,7 +813,7 @@ body.modal-open { overflow: hidden; }
   transition: all 0.35s ease;
   margin: 0;
 }
-.faq-item.faq-active p { max-height: 200px; margin-top: 0.9rem; }
+.faq-item.faq-active p { max-height: 600px; margin-top: 0.9rem; }
 .faq-item.faq-active h3 .bi { transform: rotate(180deg); }
 
 /* RSVP form */
@@ -821,6 +824,10 @@ body.modal-open { overflow: hidden; }
   border: 1px solid var(--line);
   border-radius: 10px;
   padding: 3rem 2.4rem;
+}
+.rsvp-policy-grid {
+  max-width: 900px;
+  margin: 3rem auto 0;
 }
 .form-row { margin-bottom: 1.4rem; }
 .form-row label {
@@ -919,6 +926,13 @@ body.modal-open { overflow: hidden; }
 }
 
 /* Dress-code palette swatches */
+.palette-sections {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.5rem;
+}
+.palette-section h3 { text-align: center; margin-bottom: 1.5rem; }
+.palette-section .palette-swatches { gap: 1.25rem; margin-top: 0; }
 .palette-swatches {
   display: flex;
   justify-content: center;
@@ -974,9 +988,11 @@ p.prose,
   .card { padding: 1.75rem 1.1rem; }
   .registry-card { padding: 2rem 1.1rem; }
   .rsvp-wrap { padding: 2rem 1rem; }
+  .rsvp-policy-grid { margin-top: 2rem; }
   .modal-overlay { padding: 0.75rem; }
   .modal-box { padding: 2rem 1rem; }
   .palette-swatches { gap: 1.25rem; }
+  .palette-sections { grid-template-columns: 1fr; gap: 2.5rem; }
   .footer { padding: 3rem 0 1.5rem; }
   .footer nav { gap: 1rem 1.25rem; }
 }
